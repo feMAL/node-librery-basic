@@ -7,6 +7,7 @@ var app = express();
 
 //cargar rutas
 
+let route_user = require('./routes/user');
 let route_autor = require('./routes/autor');
 let route_category = require('./routes/category');
 let route_editorial = require('./routes/editorial');
@@ -18,8 +19,17 @@ app.use(bodyparser.json());
 
 // Configurar Headers
 
+app.use((req,res,next)=>{
+    res.header('Access-Control-Allow-Origin','*')
+    res.header('Access-Control-Allow-Headers','Authorization, X-API-KEY, Origin, X-Requested-With,Content-Type,Accept, Access-Control-Allow-Request-Method')
+    res.header('Access-Control-Allow-Methods','GET,POST,PUT,DELETE,OPTIONS')
+    res.header('Allow','GET,POST,PUT,DELETE,OPTIONS')
+
+    next();
+})
+
 //Raiz del api
-app.use('/api', [route_autor,route_category,route_editorial,route_book]);
+app.use('/api', [route_autor,route_category,route_editorial,route_book,route_user]);
 
 //Exportar moulo 
 module.exports = app;

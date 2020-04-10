@@ -7,4 +7,4 @@ let tagsSchema = mongoose.Schema({
     description: String
 });
 
-module.exports = mongoose.model('tag', tagsSchema);
+module.exports = mongoose.model('Tag', tagsSchema);

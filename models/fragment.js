@@ -9,4 +9,4 @@ let fragmentModel = Schema({
     valoration: Number
 })
 
-exports.module = moongose.model('comment', commentModel);
+module.exports = moongose.model('Fragment', fragmentModel);

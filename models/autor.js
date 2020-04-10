@@ -13,4 +13,4 @@ var autorSchema = mongoose.Schema({
     image: String
 })
   
-module.exports = mongoose.model( 'autor' , autorSchema );
+module.exports = mongoose.model( 'Autor' , autorSchema );

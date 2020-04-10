@@ -13,8 +13,12 @@
   "author": "Fernando Malgor",
   "license": "MIT",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.19.0",
+    "connect-multiparty": "^2.2.0",
     "express": "^4.17.1",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.24.0",
     "mongoose": "^5.7.1",
     "mongoose-pagination": "^1.0.0",
     "nodemon": "^1.19.2",

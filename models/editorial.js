@@ -10,4 +10,4 @@ let editorialModel = moongose.Schema({
     logo: String
 })
 
-module.exports = moongose.model('editorial',editorialModel)
+module.exports = moongose.model('Editorial',editorialModel)

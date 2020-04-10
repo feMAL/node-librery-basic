@@ -10,4 +10,4 @@ let commentModel = Schema({
     user: { type: Schema.ObjectId, ref:'user' }
 })
 
-exports.module = moongose.model('comment', commentModel);
+exports.module = moongose.model('Comment', commentModel);

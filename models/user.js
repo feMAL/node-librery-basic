@@ -1,9 +1,8 @@
 'use strict'
 
 let mongoose = require('mongoose');
-let Schema = mongoose.Schema();
 
-let userSchema = Schema({
+let userSchema = mongoose.Schema({
     username: { type: String, require:true },
     email: { type: String, require:true },
     password: { type: String, require:true },
@@ -13,4 +12,4 @@ let userSchema = Schema({
     image: String,
 });
 
-exports.module = mongoose.model('user', userSchema);
+module.exports = mongoose.model('User', userSchema);

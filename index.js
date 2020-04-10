@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost:27017/dbbookstore',
         let app = require('./app');
         let port = process.env.port || 5000
         app.listen(port,()=>{
-            console.log("SRV Connected");
+            console.log("SRV Connected in port "+port);
         });
     }
 })
