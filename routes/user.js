@@ -12,7 +12,7 @@ var md_upload = multipart({uploadDir: '../upload/users'})
 
 //api.get('/probando-controlador',md_auth.ensureAuth, UserController.pruebas);
 api.post('/register', UserController.saveUser);
-api.post('/singup', UserController.loginUser);
+api.post('/singin', UserController.loginUser);
 api.put('/update-user/:id',md_auth.ensureAuth,UserController.updateUser)
 api.post('/upload-user-image/:id',[md_auth.ensureAuth,md_upload],UserController.uploadImage)
 api.get('/get-user-image/:imageFile',UserController.getImageFile)

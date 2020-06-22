@@ -5,64 +5,35 @@ let Autor = require('../models/autor');
 let Category = require('../models/category');
 var pagination = require('mongoose-pagination');
 
-
-let getBookById = (req,res) => {
-    let bookId = req.params.id;
-
-    Book.findById(bookId,(err,findit)=>{
-        if(err){
-            res.status(404).send({message: 'Error al buscar el registro'});
-            throw err
+let getBook = (req,res) => {
+    let filter
+    let params = req.params.id
+        
+    if(!req.params.id){
+        if(req.body){
+            filter = req.body
         }else{
-            if(!findit){
-                res.status(404).send({message: 'El registro no ha sido encontrado'});
-            }else{
-                res.status(200).send({book : findit})
-            }
+            filter = {}
         }
-    });
-}
-
-let getBookByTitle = (req,res) => {
-    let bookTitle = req.params.title;
-
-    Book.findOne({title: bookTitle},(err,findit)=>{
-        if(err){
-            res.status(404).send({message: 'Error al buscar el registro'});
-            throw err
-        }else{
-            if(!findit){
-                res.status(404).send({message: 'El registro no ha sido encontrado'});
-            }else{
-                res.status(200).send({book : findit})
-            }
-        }
-    });
-}
-
-let getBooks = (req,res) => {
-    if(req.params.page){
-        var pages = req.params.page;
     }else{
-        var pages = 1;
+        filter = {_id: params}
     }
-    var itemsPerPage = 5
-    Book.find().sort('title').paginate(pages,itemsPerPage,(err,autors,tot)=>{
+    
+    Book.find(filter).populate(['autor']).exec((err,book)=>{
         if(err){
-            res.status(404).send({message: 'Error al buscar el registros'});
-            throw err
+            res.status(500).send({ok:false, error:err})
         }else{
-            if(!autors){
-                res.status(404).send({message: 'El registro no ha sido encontrado'});
+            if(!book){
+                res.status(404).send({ok:true, book})
             }else{
-                res.status(200).send({
-                    amount : tot,
-                    pages: pages,
-                    autotrs: autors
-                });
+                res.status(200)
+                    .send({
+                        ok:true,
+                        book
+                    })
             }
         }
-    });
+    })
 }
 
 
@@ -162,22 +133,6 @@ let updateBook = (req,res) => {
 
 module.exports = {
     saveBook,
-    getBookById,
-    getBookByTitle,
+    getBook,
     updateBook
 }
-
-
-            /*if(values.isbn13){
-                Book.findOne({isbn13: values.isbn13},(err,findit)=>{
-                    if(err){
-                        res.status(404).send({message: 'Incidente al modificar el registro'});
-                    }else{
-                        if(!findit){
-                            updatear = true;
-                        }else{
-                            updatear = false;
-                        }
-                    }
-               })
-            }*/

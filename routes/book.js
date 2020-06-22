@@ -8,8 +8,7 @@ let api = express.Router();
 // APISss
 
 api.post('/book', bookController.saveBook);
-api.get('/book/:id', bookController.getBookById);
-api.get('/bookbytitle/:title', bookController.getBookByTitle);
+api.get('/book/:id?', bookController.getBook);
 api.put('/book/:id', bookController.updateBook);
 /*api.get('/categorys/:page?', categoryController.getCategorys);
 api.delete('/category/:idAutor', categoryController.deleteCategory);*/
