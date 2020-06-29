@@ -34,7 +34,6 @@ let addPoints = (req,res) => {
                         }
                     }
                 })
-                
             }else{
                 res.status(404).send({message: 'El registro no ha sido encontrado'});
             }
@@ -62,13 +61,21 @@ let getAutor = (req,res) => {
 
 // Obtener los Autores de la DB con depediendo la cantidad de paginas solicitadas
 let getAutors = (req,res) => {
+    let filter = {}
+    if(req.query.name){
+        filter.name = new RegExp(req.query.name,'i')
+    }
     if(req.params.page){
         var pages = req.params.page;
     }else{
         var pages = 1;
     }
-    var itemsPerPage = 5
-    Autor.find().sort('name').paginate(pages,itemsPerPage,(err,autors,tot)=>{
+    
+    var itemsPerPage = 20
+    console.log(filter)
+    Autor.find(filter)
+        .sort('name')
+        .paginate(pages,itemsPerPage,(err,autors,tot)=>{
         if(err){
             res.status(404).send({message: 'Error al buscar el registros'});
             throw err
@@ -79,7 +86,7 @@ let getAutors = (req,res) => {
                 res.status(200).send({
                     amount : tot,
                     pages: pages,
-                    autotrs: autors
+                    autors: autors
                 });
             }
         }
