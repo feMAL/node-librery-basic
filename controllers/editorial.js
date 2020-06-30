@@ -25,13 +25,17 @@ let getEditorial = (req,res) => {
 
 // Obtener los Autores de la DB con depediendo la cantidad de paginas solicitadas
 let getEditorials = (req,res) => {
-    if(req.params.page){
-        var pages = req.params.page;
+    let filter = {}
+    if(req.query.name){
+        filter.name = new RegExp(req.query.name,'i')
+    }
+    if(req.query.page){
+        var pages = req.query.page;
     }else{
         var pages = 1;
     }
     var itemsPerPage = 5
-    Editorial.find().sort('name').paginate(pages,itemsPerPage,(err,editorials,tot)=>{
+    Editorial.find(filter).sort('name').paginate(pages,itemsPerPage,(err,editorials,tot)=>{
         if(err){
             res.status(404).send({message: 'Error al buscar el registros'});
             throw err

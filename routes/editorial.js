@@ -9,7 +9,7 @@ let api = express.Router();
 
 api.post('/editorial', editorialController.saveEditorial);
 api.get('/editorial/:id', editorialController.getEditorial);
-api.get('/editorials/:page?', editorialController.getEditorials);
+api.get('/editorial', editorialController.getEditorials);
 api.put('/editorial/:id', editorialController.updateEditorial);
 /*api.delete('/category/:idAutor', categoryController.deleteCategory);*/
 

@@ -9,7 +9,7 @@ let api = express.Router();
 
 api.post('/category', categoryController.saveCategory);
 api.get('/category/:id', categoryController.getCategory);
-api.get('/categorys/:page?', categoryController.getCategorys);
+api.get('/category', categoryController.getCategorys);
 api.put('/category/:idCategory', categoryController.updateCategory);
 /*api.delete('/category/:idAutor', categoryController.deleteCategory);*/
 

@@ -12,6 +12,7 @@ let route_autor = require('./routes/autor');
 let route_category = require('./routes/category');
 let route_editorial = require('./routes/editorial');
 let route_book = require('./routes/book');
+let route_tag = require('./routes/tag')
 
 // Parsear la IO del app en JSON
 app.use(bodyparser.urlencoded({extended:false}));
@@ -29,7 +30,14 @@ app.use((req,res,next)=>{
 })
 
 //Raiz del api
-app.use('/api', [route_autor,route_category,route_editorial,route_book,route_user]);
+app.use('/api', [
+    route_autor,
+    route_category,
+    route_editorial,
+    route_book,
+    route_user,
+    route_tag
+]);
 
-//Exportar moulo 
+//Exportar modulo 
 module.exports = app;
