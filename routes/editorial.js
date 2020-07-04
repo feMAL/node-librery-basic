@@ -14,4 +14,3 @@ api.put('/editorial/:id', editorialController.updateEditorial);
 /*api.delete('/category/:idAutor', categoryController.deleteCategory);*/
 
 module.exports = api;
-

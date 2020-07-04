@@ -10,8 +10,8 @@ let getBook = (req,res) => {
     let params = req.params.id
         
     if(!req.params.id){
-        if(req.body){
-            filter = req.body
+        if(req.query){
+            filter = req.query
         }else{
             filter = {}
         }
@@ -49,7 +49,7 @@ let saveBook = (req,res) => {
     book.yearPublished = params.yearPublished;
     book.editorial = params.editorial;
     book.pages = params.pages;
-    book.isbn13 = params.isbn13;
+    book.isbn13 = params.isbn;
     book.briefDescription = params.briefDescription;
     book.sinopsis = params.sinopsis;
     book.linkAmazon = params.linkAmazon;

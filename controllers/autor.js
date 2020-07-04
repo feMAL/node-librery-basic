@@ -72,7 +72,6 @@ let getAutors = (req,res) => {
     }
     
     var itemsPerPage = 20
-    console.log(filter)
     Autor.find(filter)
         .sort('name')
         .paginate(pages,itemsPerPage,(err,autors,tot)=>{
