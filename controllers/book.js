@@ -19,7 +19,7 @@ let getBook = (req,res) => {
         filter = {_id: params}
     }
     
-    Book.find(filter).populate(['autor']).exec((err,book)=>{
+    Book.find(filter).populate('autor category editorial').exec((err,book)=>{
         if(err){
             res.status(500).send({ok:false, error:err})
         }else{
@@ -36,6 +36,32 @@ let getBook = (req,res) => {
     })
 }
 
+let getBookByAutor = (req,res) => {
+    let id = req.params.autor
+    let filter
+
+    if(id){
+        filter = { autor: id }
+    }else{
+        return  res.status(400).send({ok:false, error: 'No ha enviado un ID valido'})
+    }
+
+    Book.find(filter).populate('autor category editorial').exec((err,book)=>{
+        if(err){
+            return res.status(500).send({ok:false, error:err})
+        }else{
+            if(!book){
+                return res.status(404).send({ok:true, book})
+            }else{
+                return res.status(200)
+                    .send({
+                        ok:true,
+                        book
+                    })
+            }
+        }
+    })
+}
 
 let saveBook = (req,res) => {
     var book = new Book();
@@ -49,7 +75,7 @@ let saveBook = (req,res) => {
     book.yearPublished = params.yearPublished;
     book.editorial = params.editorial;
     book.pages = params.pages;
-    book.isbn13 = params.isbn;
+    book.isbn13 = params.isbn13;
     book.briefDescription = params.briefDescription;
     book.sinopsis = params.sinopsis;
     book.linkAmazon = params.linkAmazon;
@@ -59,16 +85,19 @@ let saveBook = (req,res) => {
     book.imageFront = params.imageFront;
     book.imageBack = params.imageBack;
 
+    
+
     if(!book.title || !book.category || !book.editorial || !book.isbn13 || !book.autor){
         res.status(404).send({message: 'Uno de los campos requerido del libro no fueron cargados. Por favor verifique el formulario enviado'})
     }else{
-        Book.findOne({isbn13: book.isbn13, editorial: book.editorial},(err,findit)=>{
+        Book.findOne({isbn13: book.isbn13},(err,findit)=>{
             if(err){
                 res.status(404).send({message: 'Incidente al cargar un registro'});
             }else{
                 if(!findit){
                     book.save({book},(err, savedBook)=>{
                         if(err){
+                            console.log(err)
                             res.status(404).send({message: 'Error al dar de alta el registro'});
                         }else{
                             if(!savedBook){
@@ -134,5 +163,6 @@ let updateBook = (req,res) => {
 module.exports = {
     saveBook,
     getBook,
-    updateBook
+    updateBook,
+    getBookByAutor
 }

@@ -62,12 +62,13 @@ let saveEditorial = (req,res) => {
     editorial.url = params.url;
     editorial.description = params.description;
     editorial.contact = params.contact;
-    editorial.logo = 'null';
+    editorial.logo = params.logo;
 
     if(!editorial.name){
-        res.status(404).send({message: 'El campo nombre del autor es requerido para dar de alta el registro'})
+        res.status(404).send({message: 'El campo nombre editorial es requerido para dar de alta el registro'})
     }else{
-        Editorial.findOne({name: editorial.name},(err,findit)=>{
+        let expresion = new RegExp(editorial.name,'i');
+        Editorial.findOne({name: expresion},(err,findit)=>{
             if(err){
                 res.status(404).send({message: 'Incidente al cargar un registro'});
             }else{
@@ -84,7 +85,7 @@ let saveEditorial = (req,res) => {
                         }
                     })
                 }else{
-                    res.status(404).send({message: 'El autor ingresado ya existe'});
+                    res.status(404).send({message: 'La editorial ingresada ya existe'});
                 }
             }
         })

@@ -9,8 +9,10 @@ let api = express.Router();
 // APISss
 
 api.get('/book/:id?', bookController.getBook);
+api.post('/book/:autor', bookController.getBookByAutor);
 api.post('/book', [ ensureAuth ] , bookController.saveBook);
-api.put('/book/:id', bookController.updateBook);
+api.put('/book/:id', [ ensureAuth ], bookController.updateBook);
+
 /*api.get('/categorys/:page?', categoryController.getCategorys);
 api.delete('/category/:idAutor', categoryController.deleteCategory);*/
 
