@@ -6,18 +6,18 @@ let Category = require('../models/category');
 var pagination = require('mongoose-pagination');
 
 let getBook = (req,res) => {
-    let filter
+    let filter = {}
     let params = req.params.id
-        
+
     if(!req.params.id){
         if(req.query){
-            filter = req.query
-        }else{
-            filter = {}
+            filter.title = new RegExp(req.query.title,'i')
         }
     }else{
         filter = {_id: params}
     }
+
+    console.log(req.query)
     
     Book.find(filter).populate('autor category editorial').exec((err,book)=>{
         if(err){

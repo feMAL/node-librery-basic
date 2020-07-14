@@ -11,5 +11,6 @@ const api = express.Router()
 api.get('/tag', tagsController.getTags)
 api.get('/tag/:id', tagsController.getTag)
 api.post('/tag',[ensureAuth],tagsController.saveTag)
+api.put('/tag/:id',[ensureAuth], tagsController.updateTag)
 
 module.exports = api

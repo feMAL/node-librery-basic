@@ -9,15 +9,17 @@ var pagination = require('mongoose-pagination') // <- MONGOOSE PAGINATION
 let getEditorial = (req,res) => {
     let editorialId = req.params.id;
 
+    if(editorialId.length != 24){
+        return res.status(400).send({message: 'El id enviado no es correcto'});
+    }
     Editorial.findById(editorialId,(err,findit)=>{
         if(err){
-            res.status(404).send({message: 'Error al buscar el registro'});
-            throw err
+            return res.status(404).send({message: 'Error al buscar el registro'});
         }else{
             if(!findit){
-                res.status(404).send({message: 'El registro no ha sido encontrado'});
+                return res.status(404).send({message: 'El registro no ha sido encontrado'});
             }else{
-                res.status(200).send({editorial : findit})
+                return res.status(200).send({editorial : findit})
             }
         }
     });
@@ -96,7 +98,7 @@ let updateEditorial = (req,res) => {
     var idEditorial = req.params.id;
     var values = req.body;
     if(!idEditorial){
-        res.status(404).send({message: "No ha enviado el id del autor que desea actualizar"});
+        res.status(404).send({message: "No ha enviado el id de la editorial que desea actualizar"});
     }else{
         Editorial.findByIdAndUpdate(idEditorial,values,(err,editorialUpdated)=>{
             if(err){
